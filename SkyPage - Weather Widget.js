@@ -4,14 +4,16 @@
 
 
 //API_KEY
-let API_WEATHER = "ADD_API_HERE";//Load Your api here
-let CITY_WEATHER = "ADD_CITY_ID_HERE";//add your city ID
+let API_WEATHER = "6ca72b409e9664e69a91ae2238cdbd7d";//Load Your api here
+let CITY_WEATHER = "6954929";//add your city ID(disabled please USE LAT LONG)
 let UNIT_TYPE = "C";//C for Celius and F for fernite
 let TEXT_COLOR = "#000000";//Text color
 let BG_COLOR = "f8f8f8";//background color
 let FONT = "Avenir";//Text Font
 let FONT_BOLD = "Avenir-Heavy";//Text Font bold
 let MODE = "M";// A - get the location on auto, M - get location from city ID(Manual)
+let LAT = "28.4499";
+let LONG = "77.5278";
 
 // Create Widget
 const widget = new ListWidget()
@@ -51,14 +53,17 @@ async function createWidget_small() {
     unit_s = "°";
   }
 
-  let wetherurl = "http://api.openweathermap.org/data/2.5/weather?id=" + CITY_WEATHER + "&APPID=" + API_WEATHER + "&units=" + unit_id;
+  //let wetherurl = "http://api.openweathermap.org/data/2.5/weather?id=" + CITY_WEATHER + "&APPID=" + API_WEATHER + "&units=" + unit_id;
+  let wetherurl = "https://api.openweathermap.org/data/2.5/weather?lat=" + LAT + "&lon=" + LONG + "&appid=" + API_WEATHER + "&units=" + unit_id;
+  let url2 = "https://api.open-meteo.com/v1/forecast?latitude="+ LAT +"&longitude="+LONG+"&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1"
   if(MODE === "A"){
     Location.setAccuracyToBest();
     let curLocation = await Location.current();
     wetherurl = "https://api.openweathermap.org/data/2.5/weather?lat=" + curLocation.latitude + "&lon=" + curLocation.longitude + "&appid=" + API_WEATHER + "&units=" + unit_id;
+    url2 = "https://api.open-meteo.com/v1/forecast?latitude="+ curLocation.latitude +"&longitude="+curLocation.longitude+"&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1"
     
   }
-  let url2 = "https://api.open-meteo.com/v1/forecast?latitude=28.4499&longitude=77.5278&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1"
+  
   const weatherJSON = await fetchWeatherData(wetherurl);
   const weatherJSONnew = await fetchWeatherData(url2)
   console.log(weatherJSONnew)
