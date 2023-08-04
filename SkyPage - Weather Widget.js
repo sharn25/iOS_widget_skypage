@@ -4,7 +4,7 @@
 
 
 //API_KEY
-let API_WEATHER = "6ca72b409e9664e69a91ae2238cdbd7d";//Load Your api here
+let API_WEATHER = "API_HERE";//Load Your api here
 let CITY_WEATHER = "6954929";//add your city ID(disabled please USE LAT LONG)
 let UNIT_TYPE = "C";//C for Celius and F for fernite
 let TEXT_COLOR = "#000000";//Text color
