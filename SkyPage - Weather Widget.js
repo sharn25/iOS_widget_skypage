@@ -45,22 +45,25 @@ async function createWidget_small() {
   // get weather Data
   let unit_id = "";
   let unit_s = "";
+  let unit_id_open_metro = "";
   if(UNIT_TYPE=="F"){
     unit_id = "imperial";
+    unit_id_open_metro = "fahrenheit"
     unit_s = "°";
   }else{
     unit_id = "metric";
     unit_s = "°";
+    unit_id_open_metro = "celsius"
   }
-
+	
   //let wetherurl = "http://api.openweathermap.org/data/2.5/weather?id=" + CITY_WEATHER + "&APPID=" + API_WEATHER + "&units=" + unit_id;
   let wetherurl = "https://api.openweathermap.org/data/2.5/weather?lat=" + LAT + "&lon=" + LONG + "&appid=" + API_WEATHER + "&units=" + unit_id;
-  let url2 = "https://api.open-meteo.com/v1/forecast?latitude="+ LAT +"&longitude="+LONG+"&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1"
+  let url2 = "https://api.open-meteo.com/v1/forecast?latitude="+ LAT +"&longitude="+LONG+"&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1&temperature_unit=" + unit_id_open_metro;
   if(MODE === "A"){
     Location.setAccuracyToBest();
     let curLocation = await Location.current();
     wetherurl = "https://api.openweathermap.org/data/2.5/weather?lat=" + curLocation.latitude + "&lon=" + curLocation.longitude + "&appid=" + API_WEATHER + "&units=" + unit_id;
-    url2 = "https://api.open-meteo.com/v1/forecast?latitude="+ curLocation.latitude +"&longitude="+curLocation.longitude+"&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1"
+    url2 = "https://api.open-meteo.com/v1/forecast?latitude="+ curLocation.latitude +"&longitude="+curLocation.longitude+"&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto&forecast_days=1&temperature_unit=" + unit_id_open_metro;
     
   }
   
